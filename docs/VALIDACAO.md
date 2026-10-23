@@ -1,4 +1,14 @@
-# Validação da versão 0.6.0
+# Validação da versão 0.7.0
+
+## Referências fiscais — 0.7.0
+
+48 testes locais aprovados e compilação concluída. O novo grupo testa assinatura matemática com XML sintético assinado, adulteração/DTD, preservação, zeros iniciais, variantes tributárias, migração 4→5, idempotência, vínculo, backup e cálculo decimal de ICMS/IBS/CBS. A nova interface passou por consulta/busca, vínculo persistente, prévia P13, isolamento e janela de 1000px com dados fictícios. Regressão operacional, lembretes/vasilhames e diagnóstico simulado também passaram na fonte.
+
+A leitura dos três XMLs reais preservou os arquivos, verificou matematicamente as assinaturas, importou cinco itens e permitiu consultar 89–94 campos por item e calcular cinco prévias. Não verificou cadeia/revogação, autenticidade do protocolo na SEFAZ, situação atual ou correção fiscal; nenhuma nota nova foi transmitida. Ver [campos de gás e água](FISCAL-GAS-AGUA.md).
+
+A distribuição Windows 0.7.0 passou também pela nova interface de referências, pelos 15 grupos de regressão operacional e pelo diagnóstico fiscal simulado. O auxiliar XML fica em `app.asar.unpacked`. A versão anterior foi preservada separadamente, e foi criado backup íntegro do perfil pessoal antes da migração 4→5; os cinco itens de referência foram integrados sem alterar o estado operacional.
+
+## Histórico da distribuição 0.6.0 e laboratório
 
 Atualização do código em desenvolvimento: o laboratório posterior à distribuição passou a ter 42 testes locais e realizou emissão real de homologação, com resultado parcial. NF-e autorizada e cancelada; NFC-e rejeitada por cadastro e inutilização com serviço desativado. Ver [teste de emissão](TESTE-EMISSAO-SP.md). O instalador e os testes de interface da versão 0.6.0 abaixo permanecem como foram entregues; o laboratório ainda não foi integrado à tela de vendas.
 

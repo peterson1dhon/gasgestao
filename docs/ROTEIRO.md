@@ -6,6 +6,8 @@ Cadastros, pedidos, entregadores, fluxo de entrega, estoque reservado, recebimen
 
 ## Entregas adicionais concluídas
 
+- 0.7.0: leitura/consulta de referências fiscais de gás/água exportadas do RevGás, vínculo em revisão, prévia e alertas de divergência. Catálogo com 40 opções de operação. Emissão no pedido permanece pendente; ver `FISCAL-GAS-AGUA.md`.
+
 - 0.2.0: layout clássico conforme referências públicas do original.
 - 0.3.0: consulta offline de CEP integrada e base local instalada neste computador. A atualização dessa base ainda não é automática.
 

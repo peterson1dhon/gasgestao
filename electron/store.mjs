@@ -53,7 +53,7 @@ export class Store {
       "PRAGMA foreign_keys=ON; PRAGMA busy_timeout=5000; PRAGMA journal_mode=WAL;",
     );
     const version = this.db.prepare("PRAGMA user_version").get().user_version;
-    if (version > 4)
+    if (version > 5)
       throw new Error(
         "Este banco foi criado por uma versão mais recente do GasGestão.",
       );
@@ -108,6 +108,18 @@ export class Store {
         CREATE INDEX items_customer_reminder ON order_items(product_id,order_id);
         PRAGMA user_version=4;
       `);
+      });
+    if (version < 5)
+      this.transaction(() => {
+        this.db.exec(`
+          CREATE TABLE IF NOT EXISTS fiscal_references (
+            id TEXT PRIMARY KEY,
+            value TEXT NOT NULL,
+            product_id INTEGER REFERENCES products(id),
+            imported_at TEXT NOT NULL
+          );
+          PRAGMA user_version=5;
+        `);
       });
   }
   timestamp() {

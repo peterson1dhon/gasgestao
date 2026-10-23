@@ -1,3 +1,40 @@
+export type FiscalReference = {
+  id: string;
+  documentHash: string;
+  issuerHash: string;
+  item: string;
+  issuedAt: string;
+  model: string;
+  environment: string;
+  crt: string;
+  uf: string;
+  status: string;
+  signatureVerified: boolean;
+  certificateChainChecked: false;
+  currentStatusChecked: false;
+  fields: { path: string; value: string }[];
+  productId: number | null;
+  linkedProductName: string | null;
+  importedAt: string;
+  warnings: string[];
+};
+export type FiscalReferenceCatalog = {
+  canIssue: false;
+  references: FiscalReference[];
+  operations: string[];
+};
+export type FiscalReferencePreview = {
+  simulation: true;
+  canIssue: false;
+  total: string;
+  tributaryQuantity: string;
+  tributaryUnit: string;
+  icms: string;
+  retainedIcms: string;
+  ibs: string;
+  cbs: string;
+  note: string;
+};
 export type FiscalCertificate = {
   thumbprint: string;
   label: string;
@@ -123,7 +160,11 @@ export type Driver = {
   active: number;
 };
 export type Status =
-  "novo" | "preparando" | "em_rota" | "entregue" | "cancelado";
+  | "novo"
+  | "preparando"
+  | "em_rota"
+  | "entregue"
+  | "cancelado";
 export type OrderItem = {
   id: number;
   product_id: number;
@@ -227,6 +268,16 @@ export type Report = {
 export type Result<T> = { ok: true; data: T } | { ok: false; error: string };
 type Input = Record<string, unknown>;
 export type Bridge = {
+  fiscalReferences: () => Promise<Result<FiscalReferenceCatalog>>;
+  importFiscalReferences: () => Promise<
+    Result<(FiscalReferenceCatalog & { added: number }) | null>
+  >;
+  linkFiscalReference: (
+    input: Input,
+  ) => Promise<Result<FiscalReferenceCatalog>>;
+  previewFiscalReference: (
+    input: Input,
+  ) => Promise<Result<FiscalReferencePreview>>;
   fiscalSummary: () => Promise<Result<FiscalSummary>>;
   fiscalCertificates: () => Promise<Result<FiscalCertificate[]>>;
   fiscalStatus: (input: Input) => Promise<Result<FiscalStatus>>;

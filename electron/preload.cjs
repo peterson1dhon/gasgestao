@@ -6,6 +6,10 @@ const call =
 contextBridge.exposeInMainWorld(
   "gasgestao",
   Object.freeze({
+    fiscalReferences: call("fiscal:references"),
+    importFiscalReferences: call("fiscal:reference-import"),
+    linkFiscalReference: call("fiscal:reference-link"),
+    previewFiscalReference: call("fiscal:reference-preview"),
     fiscalSummary: call("fiscal:summary"),
     fiscalCertificates: call("fiscal:certificates"),
     fiscalStatus: call("fiscal:status"),

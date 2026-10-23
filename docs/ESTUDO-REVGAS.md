@@ -1,5 +1,7 @@
 # Estudo funcional do RevGás
 
+Atualização 0.7.0: o levantamento foi ampliado com XMLs autorizados de gás/água e 40 opções de operação. Referências, vínculo em revisão, consulta de campos e prévia foram integrados ao GasGestão, sem alterar CSS/navegação. Veja [os resultados e divergências fiscais](FISCAL-GAS-AGUA.md).
+
 Inspeção em 23/10/2026, no navegador interno, com a conta autorizada pelo usuário. Este levantamento descreve telas e fluxos observados. Não reproduz código, elementos gráficos, credenciais, dados de clientes ou documentos fiscais do serviço.
 
 ## Fluxos observados

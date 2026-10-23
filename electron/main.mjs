@@ -4,6 +4,7 @@ import {
   validateStatusInput,
 } from "./fiscal/status.mjs";
 import { Engagement } from "./engagement.mjs";
+import { FiscalReferences } from "./fiscal/references.mjs";
 import {
   app,
   BrowserWindow,
@@ -26,7 +27,7 @@ if (process.env.GASGESTAO_DATA_DIR) {
   mkdirSync(process.env.GASGESTAO_DATA_DIR, { recursive: true });
   app.setPath("userData", process.env.GASGESTAO_DATA_DIR);
 }
-let store, engagement, fiscal, window;
+let store, engagement, fiscal, fiscalReferences, window;
 const single = app.requestSingleInstanceLock();
 if (!single) app.quit();
 else {
@@ -253,6 +254,7 @@ async function start() {
   store = new Store(databasePath);
   engagement = new Engagement(store);
   fiscal = new FiscalDiagnostics(join(dataPath, "fiscal-status.json"));
+  fiscalReferences = new FiscalReferences(store);
   if (hadDatabase) {
     const auto = join(dataPath, "backups", `automatico-${localDate()}.sqlite`);
     if (!existsSync(auto)) {
@@ -298,6 +300,20 @@ async function start() {
     };
   });
   handle("fiscal:summary", () => fiscal.summary());
+  handle("fiscal:references", () => fiscalReferences.list());
+  handle("fiscal:reference-link", (input) => fiscalReferences.link(input));
+  handle("fiscal:reference-preview", (input) => fiscalReferences.preview(input));
+  handle("fiscal:reference-import", async () => {
+    if (process.env.GASGESTAO_TEST === "1")
+      throw new ValidationError("O seletor pessoal de arquivos não é aberto nos testes.");
+    const result = await dialog.showOpenDialog(window, {
+      title: "Importar referências fiscais — XMLs já emitidos",
+      properties: ["openFile", "multiSelections"],
+      filters: [{ name: "XML de NF-e / NFC-e", extensions: ["xml"] }],
+    });
+    if (result.canceled) return null;
+    return fiscalReferences.importFiles(result.filePaths);
+  });
   const fiscalMock =
     process.env.GASGESTAO_TEST === "1" &&
     process.env.GASGESTAO_FISCAL_LIVE_TEST !== "1";

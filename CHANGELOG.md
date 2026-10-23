@@ -1,5 +1,11 @@
 # Histórico
 
+## 0.7.0 — 2026-10-23
+
+Referências fiscais de gás/água integradas ao diagnóstico existente: importação de XMLs com assinatura matemática verificada, consulta dos campos, vínculo em revisão ao produto, alertas de divergência e prévia de cálculo. Catálogo das 40 opções de saída observadas. Leitura real de três XMLs do RevGás, cinco itens, 89–94 campos por item; originais e dados privados fora do Git.
+
+Esquema 5 preserva catálogo/vínculos no backup. ICMS 00/60/61 e grupos observados de PIS/COFINS e IBS/CBS cobertos pela prévia restrita; códigos ausentes não recebem valor padrão. Alerta prioritário para revisar água com ST em SP após 01/07/2026 conforme Portaria SRE 9/2026. Importação não cria venda nem movimentação. Emissão no pedido permanece indisponível; layout/CSS clássicos preservados. Ver `docs/FISCAL-GAS-AGUA.md`.
+
 ## Documentação e distribuição do código — 2026-10-23
 
 Estudo funcional do RevGás em sessão autorizada no navegador interno, com fluxos de NF-e, configurações separadas, cadastro de produtos e limite de acesso à emissão de NFC-e. Propostas registradas sem mudança do layout ou da lógica do aplicativo. Código próprio preparado para o repositório público criado pelo usuário; dados operacionais, documentos fiscais e certificados excluídos. Executável 0.6.0 aberto e atalho na Área de Trabalho criado.

@@ -7,6 +7,7 @@ import {
   type FiscalStatus,
 } from "./api";
 import { Dialog, Field } from "./components";
+import { FiscalReferencePanel } from "./fiscal-references";
 export function FiscalDialog({ close }: { close: () => void }) {
   const [certificates, setCertificates] = useState<FiscalCertificate[]>([]),
     [selected, setSelected] = useState(""),
@@ -73,6 +74,10 @@ export function FiscalDialog({ close }: { close: () => void }) {
           ambiente de homologação. Não emitem, cancelam ou inutilizam documentos
           e não acessam produção.
         </p>
+        <details>
+          <summary>Referências fiscais gás e água</summary>
+          <FiscalReferencePanel />
+        </details>
         {error && (
           <p className="inline-error" role="alert">
             {error}

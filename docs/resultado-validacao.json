@@ -1,7 +1,7 @@
 {
-  "versao": "0.6.0",
+  "versao": "0.7.0",
   "data": "2026-10-23T20:15:19.997610+00:00",
-  "testes_negocio": 37,
+  "testes_negocio": 48,
   "compilacao": "aprovada",
   "interface_fonte": "15 grupos de regressao + 4 modulos + diagnostico fiscal simulado e real",
   "interface_executavel": "15 grupos de regressao + 4 modulos + diagnostico fiscal simulado e real",
@@ -67,5 +67,25 @@
     "modo": "leitura sem alterar dados",
     "nfce": "formulario bloqueado por acesso/configuracao nesta conta",
     "relatorio": "ESTUDO-REVGAS.md"
+  },
+  "referencias_fiscais": {
+    "documentos_reais_lidos": 3,
+    "itens": 5,
+    "campos_por_item": [
+      89,
+      89,
+      89,
+      89,
+      94
+    ],
+    "assinaturas_matematicas_verificadas": true,
+    "cadeia_revogacao_verificadas_nesta_leitura": false,
+    "situacao_atual_verificada": false,
+    "operacoes_observadas": 40,
+    "vinculo": "em revisao",
+    "previsao": "simulacao restrita 2026/SP/CRT3; sem emissao",
+    "esquema": 5,
+    "integrado_ao_programa": true,
+    "emissao_no_pedido": false
   }
 }

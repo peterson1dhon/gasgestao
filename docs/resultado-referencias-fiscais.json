@@ -1,0 +1,28 @@
+{
+  "ok": true,
+  "sourceDocuments": 3,
+  "sourceItems": 5,
+  "fields": [
+    89,
+    89,
+    89,
+    89,
+    94
+  ],
+  "warnings": [
+    6,
+    5,
+    4,
+    4,
+    2
+  ],
+  "mathematicalSignaturesVerified": true,
+  "previewCount": 5,
+  "canIssue": false,
+  "sourceFilesUnchanged": true,
+  "version": "0.7.0",
+  "syntheticUiTestsSource": true,
+  "syntheticUiTestsPackaged": true,
+  "privateCatalogInstalled": true,
+  "schema": 5
+}

@@ -2,11 +2,11 @@
 
 Sistema Windows para organizar uma revenda de gás, água e entregas. Funciona offline e salva os dados em SQLite no computador.
 
-**Versão 0.6.0.** Implementação nova com layout clássico inspirado nas referências públicas do GasExpert: menus superiores, barras de ferramentas, janelas internas, tabelas compactas e cores por pagamento. Código e elementos gráficos próprios. Não inclui executáveis, bancos, recursos visuais ou código descompilado do GasExpert. As regras foram implementadas para este projeto e precisam ser validadas com a operação real.
+**Versão 0.7.0.** Implementação nova com layout clássico inspirado nas referências públicas do GasExpert: menus superiores, barras de ferramentas, janelas internas, tabelas compactas e cores por pagamento. Código e elementos gráficos próprios. Não inclui executáveis, bancos, recursos visuais ou código descompilado do GasExpert. As regras foram implementadas para este projeto e precisam ser validadas com a operação real.
 
 ## Usar no Windows
 
-O instalador fica em `release/GasGestao-0.6.0-Windows-x64-Setup.exe` após gerar a distribuição. Instalação por usuário, com opção de escolher a pasta e criar um atalho na área de trabalho. O instalador ainda não tem assinatura digital.
+O instalador fica em `release/GasGestao-0.7.0-Windows-x64-Setup.exe` após gerar a distribuição. Instalação por usuário, com opção de escolher a pasta e criar um atalho na área de trabalho. O instalador ainda não tem assinatura digital.
 
 Também é possível abrir `release/win-unpacked/GasGestao.exe`, mantendo a pasta completa ao redor do executável. Não precisa instalar Node.js ou Java para usar o aplicativo empacotado.
 
@@ -57,11 +57,17 @@ As previsões começam com três compras concluídas do mesmo produto em dias di
 
 O visual clássico foi preservado. O [levantamento](docs/COMPARATIVO-2026.md) registra as fontes oficiais, o que foi implementado e as diferenças que permanecem. CNPJ é opcional; as novas opções ficam em **Configurações → Opções de cadastro e impressão**. Validação de CNPJ é local e não consulta a situação cadastral da empresa.
 
+## Referências fiscais de gás e água — 0.7.0
+
+Em **Utilitários → Diagnóstico fiscal SP → Referências fiscais gás e água**, importe XMLs já emitidos, consulte os campos/códigos, vincule referências em revisão ao produto e calcule uma prévia sem criar venda ou transmitir nota. Foram levantadas 40 opções de saída. O catálogo real fica no banco local e no backup, fora do Git. Há alertas para códigos divergentes, conversão de unidades, embalagem/CEST e mudança de ST em SP. Consulte [os campos, resultados e limites](docs/FISCAL-GAS-AGUA.md).
+
+![Referências fiscais com dados fictícios](docs/referencias-fiscais.png)
+
 ## Integração fiscal — primeira etapa
 
 Abra **Utilitários → Diagnóstico fiscal SP**, escolha o certificado da empresa e teste NF-e/NFC-e. Os dois serviços responderam **107 — Serviço em Operação** nos testes reais de 23/10/2026. A chave privada permaneceu no Windows; foram verificadas cadeia, revogação e conexão TLS, sem exportar o A1.
 
-O instalador 0.6.0 consulta somente o status em homologação. A tela de vendas ainda não gera, assina ou emite nota, nem acessa produção. O retorno 107 não comprova credenciamento do emitente nem a correção de impostos. Comprovantes de pedido continuam sem valor fiscal. Consulte o [estudo de viabilidade, plano de 25 dias e revisão de segurança](docs/FISCAL-SP.md).
+A tela de diagnóstico consulta o status em homologação; a versão 0.7.0 também permite ler XMLs já emitidos como referências privadas. A tela de vendas ainda não gera, assina ou emite nota, nem acessa produção. O retorno 107 não comprova credenciamento do emitente nem a correção de impostos. Comprovantes de pedido continuam sem valor fiscal. Consulte o [estudo de viabilidade, plano de 25 dias e revisão de segurança](docs/FISCAL-SP.md).
 
 No laboratório de desenvolvimento, separado da tela de vendas, uma **NF-e fictícia de R$ 1,00 foi autorizada e cancelada em homologação**, com consulta e protocolo confirmados. A NFC-e foi rejeitada com 245, CNPJ emitente não cadastrado; o portal de testes exige dados do responsável para o credenciamento. Inutilização retornou 998, serviço desativado. Isso não libera a operação fiscal diária. Detalhes e limites em [teste de emissão](docs/TESTE-EMISSAO-SP.md).
 
@@ -106,6 +112,7 @@ npm run build
 npm run test:ui
 npm run test:engagement
 npm run test:fiscal
+node scripts/test-fiscal-references-ui.mjs
 ```
 
 Gerar a pasta executável ou o instalador:
