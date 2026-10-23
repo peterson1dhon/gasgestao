@@ -1,0 +1,130 @@
+{
+  "date": "2026-10-23T20:47:41.254149+00:00",
+  "stage": "laboratorio posterior ao instalador 0.6.0",
+  "environment": "homologacao",
+  "state": "SP",
+  "productionFiscalServicesAccessed": false,
+  "documentsAuthorized": 1,
+  "documentsCancelled": 1,
+  "allTestsPassed": false,
+  "privateKeyExported": false,
+  "models": [
+    {
+      "model": "55",
+      "signatureValid": true,
+      "schemaValid": true,
+      "authorized": true,
+      "authorization": {
+        "mode": "Authorize",
+        "documentReason": "Autorizado o uso da NF-e",
+        "protocolReceived": true,
+        "environment": "homologacao",
+        "documentStatus": "100",
+        "batchStatus": "104",
+        "ok": true,
+        "model": "55",
+        "reason": "Lote processado",
+        "authorized": true,
+        "privateKeyExported": false
+      },
+      "queryBeforeCancellation": {
+        "environment": "homologacao",
+        "ok": true,
+        "cStat": "100",
+        "model": "55",
+        "reason": "Autorizado o uso da NF-e",
+        "mode": "Query",
+        "privateKeyExported": false
+      },
+      "cancellation": {
+        "privateKeyExported": false,
+        "model": "55",
+        "eventReason": "Evento registrado e vinculado a NF-e",
+        "ok": true,
+        "environment": "homologacao",
+        "batchStatus": "128",
+        "mode": "Cancel",
+        "eventStatus": "135"
+      },
+      "queryAfterCancellation": {
+        "environment": "homologacao",
+        "ok": true,
+        "cStat": "101",
+        "model": "55",
+        "reason": "Cancelamento de NF-e homologado",
+        "mode": "Query",
+        "privateKeyExported": false
+      },
+      "duplicateTransmissionBlocked": true
+    },
+    {
+      "model": "65",
+      "signatureValid": true,
+      "schemaValid": true,
+      "authorized": false,
+      "authorization": {
+        "mode": "Authorize",
+        "documentReason": "Rejeição: CNPJ Emitente não cadastrado",
+        "protocolReceived": false,
+        "environment": "homologacao",
+        "documentStatus": "245",
+        "batchStatus": "104",
+        "ok": true,
+        "model": "65",
+        "reason": "Lote processado",
+        "authorized": false,
+        "privateKeyExported": false
+      },
+      "queryBeforeCancellation": {
+        "environment": "homologacao",
+        "ok": true,
+        "cStat": "217",
+        "model": "65",
+        "reason": "Rejeição: NF-e não consta na base de dados da SEFAZ",
+        "mode": "Query",
+        "privateKeyExported": false
+      },
+      "cancellation": null,
+      "queryAfterCancellation": null
+    }
+  ],
+  "registry": {
+    "privateKeyExported": false,
+    "ok": true,
+    "registrationStatus": "1",
+    "environment": "homologacao",
+    "reason": "Consulta cadastro com uma ocorrência",
+    "mode": "Registry",
+    "taxRegime": "NORMAL - REGIME PERIÓDICO DE APURAÇÃO",
+    "cStat": "111"
+  },
+  "inutilization": {
+    "mode": "Inutilize",
+    "environment": "homologacao",
+    "start": 2,
+    "reason": "Rejeição: Serviço Desativado",
+    "ok": true,
+    "model": "55",
+    "cStat": "998",
+    "privateKeyExported": false,
+    "end": 3
+  },
+  "negativeChecks": [
+    "producao bloqueada",
+    "assinatura adulterada recusada",
+    "modelo divergente bloqueado",
+    "retransmissao da chave autorizada bloqueada"
+  ],
+  "pending": [
+    "dados do responsavel e credenciamento NFC-e de testes",
+    "autorizacao/consulta/cancelamento NFC-e",
+    "inutilizacao: resposta 998 servico desativado",
+    "tributacao real de GLP e agua",
+    "DANFE e impressora fisica",
+    "contingencia/recuperacao apos interrupcao real",
+    "integracao a tela de vendas"
+  ],
+  "unitTestsPassed": 42,
+  "build": "passed",
+  "limits": "Operacao ficticia R$ 1,00 e aliquotas de exemplo; nao comprova tributacao real da revenda nem prontidao para producao."
+}

@@ -1,0 +1,71 @@
+{
+  "versao": "0.6.0",
+  "data": "2026-10-23T20:15:19.997610+00:00",
+  "testes_negocio": 37,
+  "compilacao": "aprovada",
+  "interface_fonte": "15 grupos de regressao + 4 modulos + diagnostico fiscal simulado e real",
+  "interface_executavel": "15 grupos de regressao + 4 modulos + diagnostico fiscal simulado e real",
+  "erros_renderer": 0,
+  "git_remoto": "https://github.com/peterson1dhon/gasgestao",
+  "integracoes_pendentes": [
+    "WhatsApp API / envio automatico",
+    "Bina",
+    "Emissao fiscal, eventos e producao",
+    "Importacao GasExpert",
+    "Restauracao pela interface",
+    "Multiusuario"
+  ],
+  "cep_offline": {
+    "enderecos_importados": 1131462,
+    "incompletos_descartados": 5,
+    "integridade": "ok",
+    "origem_preservada": true,
+    "atualizacao_origem": "nao confirmada",
+    "consulta_real": "18270001 — Rua Onze de Agosto, Centro, Tatuí/SP"
+  },
+  "comparacao": "documentacao publica 2026 e 2025, sem executar GasExpert 2026",
+  "layout_classico": "CSS preservado; novas opcoes nos menus existentes",
+  "recibo_renderizado": "margem, CNPJ e assinatura verificados na fonte e no executavel",
+  "novas_funcoes": [
+    "repetir pedido com revisao",
+    "previsao de recompra por produto",
+    "vasilhames emprestados",
+    "rascunho para abertura manual no WhatsApp"
+  ],
+  "whatsapp_testes": "sem abrir navegador, sem enviar mensagens, sem alterar clipboard pessoal",
+  "fiscal": {
+    "fase": "diagnostico",
+    "modelos": [
+      "55",
+      "65"
+    ],
+    "ambiente": "homologacao SP",
+    "status_real": "107 nos dois modelos",
+    "emissao_habilitada": false,
+    "notas_emitidas": 0,
+    "chave_privada_exportada": false,
+    "evidencia": "resultado-sefaz.json"
+  },
+  "seguranca": {
+    "npm_audit_vulnerabilidades_conhecidas": 0,
+    "instalador_assinado": false,
+    "banco_e_backups_criptografados": false,
+    "garantia_integral": false
+  },
+  "laboratorio_fiscal_posterior": {
+    "testes_locais": 42,
+    "NF_e_55": "100 autorizado; 135 cancelamento; 101 consulta final",
+    "NFC_e_65": "245 emitente nao cadastrado",
+    "inutilizacao": "998 servico desativado",
+    "resultado": "parcial",
+    "integrado_ao_instalador": false,
+    "evidencia": "resultado-emissao-sefaz.json"
+  },
+  "inspecao_revgas": {
+    "navegador": "interno",
+    "data": "2026-10-23",
+    "modo": "leitura sem alterar dados",
+    "nfce": "formulario bloqueado por acesso/configuracao nesta conta",
+    "relatorio": "ESTUDO-REVGAS.md"
+  }
+}

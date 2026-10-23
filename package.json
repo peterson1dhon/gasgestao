@@ -1,0 +1,70 @@
+{
+  "name": "gasgestao-desktop",
+  "version": "0.6.0",
+  "private": true,
+  "description": "Gestão local de revendas e entregas para Windows",
+  "type": "module",
+  "main": "electron/entry.mjs",
+  "author": "Peterson da Silva Caetano",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "tsc --noEmit && vite build",
+    "start": "electron .",
+    "test": "node --test tests/*.test.mjs",
+    "test:ui": "node scripts/test-ui.mjs",
+    "test:engagement": "node scripts/test-engagement-ui.mjs",
+    "dist": "npm run build && electron-builder --win nsis --x64 --publish never",
+    "pack": "npm run build && electron-builder --win --dir --x64 --publish never",
+    "test:fiscal": "node scripts/test-fiscal-ui.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "1.61.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "electron": "45.0.0",
+    "electron-builder": "26.15.3",
+    "playwright": "^1.60.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.5"
+  },
+  "build": {
+    "appId": "br.com.gasgestao.desktop",
+    "productName": "GasGestao",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "electronDist": "node_modules/electron/dist",
+    "npmRebuild": false,
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "signExecutable": false,
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "GasGestao-${version}-Windows-x64-Setup.${ext}"
+    },
+    "asarUnpack": [
+      "electron/fiscal/*.ps1"
+    ]
+  }
+}

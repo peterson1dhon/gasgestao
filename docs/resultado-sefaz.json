@@ -1,0 +1,91 @@
+{
+  "version": "0.6.0",
+  "date": "2026-10-23T20:15:19.997610+00:00",
+  "operation": "STATUS",
+  "environment": "homologacao",
+  "state": "SP",
+  "documentsIssued": 0,
+  "productionAccessed": false,
+  "privateKeysExported": false,
+  "source": {
+    "ok": true,
+    "finished": "2026-10-23T20:10:06.244Z",
+    "results": [
+      {
+        "ok": true,
+        "model": "55",
+        "environment": "homologacao",
+        "tpAmb": 2,
+        "state": "SP",
+        "cUF": 35,
+        "endpoint": "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfestatusservico4.asmx",
+        "cStat": "107",
+        "reason": "Serviço em Operação",
+        "checkedAt": "2026-10-23T20:10:02.9356841Z",
+        "validUntil": "2027-07-30",
+        "privateKeyExported": false,
+        "chainValidated": true,
+        "operation": "STATUS",
+        "live": true
+      },
+      {
+        "ok": true,
+        "model": "65",
+        "environment": "homologacao",
+        "tpAmb": 2,
+        "state": "SP",
+        "cUF": 35,
+        "endpoint": "https://homologacao.nfce.fazenda.sp.gov.br/ws/NFeStatusServico4.asmx",
+        "cStat": "107",
+        "reason": "Serviço em Operação",
+        "checkedAt": "2026-10-23T20:10:04.2872173Z",
+        "validUntil": "2027-07-30",
+        "privateKeyExported": false,
+        "chainValidated": true,
+        "operation": "STATUS",
+        "live": true
+      }
+    ]
+  },
+  "packaged": {
+    "ok": true,
+    "finished": "2026-10-23T20:14:15.447Z",
+    "results": [
+      {
+        "ok": true,
+        "model": "55",
+        "environment": "homologacao",
+        "tpAmb": 2,
+        "state": "SP",
+        "cUF": 35,
+        "endpoint": "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfestatusservico4.asmx",
+        "cStat": "107",
+        "reason": "Serviço em Operação",
+        "checkedAt": "2026-10-23T20:14:12.0546749Z",
+        "validUntil": "2027-07-30",
+        "privateKeyExported": false,
+        "chainValidated": true,
+        "operation": "STATUS",
+        "live": true
+      },
+      {
+        "ok": true,
+        "model": "65",
+        "environment": "homologacao",
+        "tpAmb": 2,
+        "state": "SP",
+        "cUF": 35,
+        "endpoint": "https://homologacao.nfce.fazenda.sp.gov.br/ws/NFeStatusServico4.asmx",
+        "cStat": "107",
+        "reason": "Serviço em Operação",
+        "checkedAt": "2026-10-23T20:14:13.4487958Z",
+        "validUntil": "2027-07-30",
+        "privateKeyExported": false,
+        "chainValidated": true,
+        "operation": "STATUS",
+        "live": true
+      }
+    ]
+  },
+  "scope": "Consulta de status. Nao comprova credenciamento, autorizacao de notas ou calculos fiscais."
+}
