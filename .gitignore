@@ -1,0 +1,35 @@
+node_modules/
+dist/
+release/
+.test-artifacts/
+*.sqlite
+*.sqlite-*
+*.db
+*.mdb
+*.exe
+*.dll
+*.ocx
+*.rar
+*.zip
+.env
+.env.*
+!.env.example
+*.credentials.json
+*.api_token
+*.log
+.DS_Store
+Thumbs.db
+
+# Certificados e chaves privadas nunca entram no repositório.
+*.pfx
+*.p12
+*.pem
+*.key
+*.p7b
+*.p7c
+*.der
+*.cer
+
+# Documentos fiscais e backups operacionais ficam fora do codigo.
+*.xml
+*.fbconsumer
