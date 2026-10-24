@@ -23,6 +23,7 @@ A autorização do usuário abrange desenvolvimento e testes em homologação. A
 2. [Arquitetura e contratos](ARQUITETURA-E-CONTRATOS.md).
 3. [Estados e recuperação](ESTADOS-E-RECUPERACAO.md).
 4. [Tributação e documentos](TRIBUTACAO-E-DOCUMENTOS.md).
+   Para o código iniciado na F03, ler também o [contrato do cálculo](CALCULO-F03.md).
 5. [Pendências da empresa](PENDENCIAS-DA-EMPRESA.md).
 6. [Plano de execução](PLANO-DE-EXECUCAO.md) e [testes/liberação](TESTES-E-LIBERACAO.md).
 

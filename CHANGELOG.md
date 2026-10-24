@@ -1,5 +1,9 @@
 # Histórico
 
+## Prévia fiscal por perfil F03 — 2026-10-24
+
+Motor puro para água na combinação restrita NCM 22011000/CFOP 5102/ICMS 00/IBS-CBS 000001, com perfil aprovado e vigente, bases e taxas explícitas. Calcula ICMS, PIS/COFINS suportados e IBS/CBS 2026, reconcilia itens com o total histórico do pedido e apresenta prévia no preflight. GLP monofásico, ST, grupos extras e datas sem política são recusados. Emissão ainda bloqueada pela F04. Ver `docs/fiscal/CALCULO-F03.md`.
+
 ## Aritmética fiscal inicial F03 — 2026-10-24
 
 Conversão decimal textual com BigInt, multiplicação de quantidade/preço, cálculo percentual e ad rem, conversão de unidade comercial em unidade tributável (P13 em kg, água em litros) e rateio exato de desconto/frete por maiores restos. Casos sintéticos independentes cobrem centavos, arredondamento e limites. Não há ainda motor tributário aprovado para GLP/água nem emissão disponível.

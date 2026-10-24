@@ -17,6 +17,8 @@
 import { validateIssuerConfig } from "./config.mjs";
 import { getCapabilities, validateEmissionDate } from "./policies.mjs";
 import { validCnpj } from "../cnpj.mjs";
+import { calculateDraftFiscalSale, FiscalCalculationError, RTC_2026_POLICY_ID } from "./calculator.mjs";
+import { formatDecimal } from "./decimal.mjs";
 
 const validCpf = (value) => {
   if (typeof value !== "string" || !/^\d{11}$/.test(value) || /^(\d)\1{10}$/.test(value)) return false;
@@ -308,6 +310,7 @@ export function validatePaymentPlan(paymentPlan, totalCents) {
  * @param {Array<object>} [params.paymentPlan] - plano de pagamento fiscal
  * @param {string|null} [params.recipientFiscalId] - CPF ou CNPJ do destinatário (opcional NFC-e)
  * @param {string} [params.emissionDate] - ISO datetime para verificar vigência de perfis e políticas
+ * @param {string} [params.deliveryFeeTreatment] - 'freight' quando revisão fiscal confirmou que a taxa é frete
  * @returns {{ ok: boolean, issues: Array<{code, severity, field, message}>, capabilities: object }}
  */
 export function runPreflight({
@@ -318,6 +321,7 @@ export function runPreflight({
   profileVersionIds = [],
   paymentPlan = [],
   emissionDate = new Date().toISOString(),
+  deliveryFeeTreatment,
 }) {
   const issues = [];
   const repo = store.fiscal;
@@ -494,7 +498,7 @@ export function runPreflight({
       const missingProfileFields = [];
       if (!pld.ncm) missingProfileFields.push("NCM");
       if (!pld.cfop) missingProfileFields.push("CFOP");
-      if (!pld.cstIcms && pld.cstIcms !== 0) missingProfileFields.push("CST ICMS");
+      if (typeof pld.taxes?.icms?.cst !== "string") missingProfileFields.push("CST ICMS");
 
       if (missingProfileFields.length > 0) {
         issues.push({
@@ -546,15 +550,43 @@ export function runPreflight({
     });
   }
 
-  // F03 ainda não entrega o cálculo tributário completo. O diagnóstico não
-  // pode prometer que o documento está pronto para reservar número.
-  issues.push({code: "F03_ENGINE_NOT_IMPLEMENTED", severity: "error", field: "fiscalEngine",
-    message: "Motor de cálculo fiscal completo ainda não implementado; emissão permanece bloqueada."});
+  let calculation = null;
+  if (order && !issues.some(issue => issue.severity === "error")) {
+    try {
+      const fee = order.delivery_fee_cents;
+      if (fee > 0 && deliveryFeeTreatment !== "freight") {
+        throw new FiscalCalculationError("DELIVERY_FEE_UNCLASSIFIED",
+          "Classifique a taxa de entrega com revisão fiscal antes de incluí-la na nota.");
+      }
+      const fiscalItems = order.items.map(item => {
+        const profile = repo.getActiveProfile({productId:item.product_id,atDate:dateText.slice(0,10)});
+        return {
+          id:String(item.id),quantity:formatDecimal(BigInt(item.quantity)*10000n,4),
+          unitPrice:formatDecimal(BigInt(item.unit_price_cents)*100000000n,10),
+          profile:{...profile.payload,id:profile.id,approvalState:profile.approvalState,
+            approvedBy:profile.approvedBy,approvedAt:profile.approvedAt,
+            validFrom:profile.validFrom,validUntil:profile.validUntil},
+        };
+      });
+      calculation = calculateDraftFiscalSale({items:fiscalItems,
+        discountCents:order.discount_cents,freightCents:fee,
+        expectedTotalCents:order.total_cents,issuedOn:dateText.slice(0,10),
+        model,policyId:RTC_2026_POLICY_ID});
+    } catch (error) {
+      if (!(error instanceof FiscalCalculationError)) throw error;
+      issues.push({code:`F03_${error.code}`,severity:"error",field:"fiscalEngine",message:error.message});
+    }
+  }
+  // F04/F05 ainda não assinam/transmitem a partir desta prévia. Mesmo uma
+  // simulação aritmética válida não pode liberar a reserva de número.
+  issues.push({code:"F04_DOCUMENT_NOT_IMPLEMENTED",severity:"error",field:"fiscalDocument",
+    message:"Documento fiscal operacional ainda não implementado; prévia disponível apenas para conferência."});
 
   const errors = issues.filter((i) => i.severity === "error");
   return {
     ok: errors.length === 0,
     issues,
     capabilities: caps,
+    calculation,
   };
 }

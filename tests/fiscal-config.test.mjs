@@ -60,13 +60,25 @@ test('preflight lê o banco real em memória e não aceita perfil selecionado di
  const order=store.createOrder({customer_id:customer,delivery_type:'retirada',payment_method:'dinheiro',items:[{product_id:product,quantity:1}]});
  saveIssuerConfig(store.fiscal,issuer.configuration);
  store.fiscal.saveCustomerDetails({customerId:customer,payload:{docType:'cpf',doc:'12345678909',nome:'Cliente Teste',logradouro:'Rua Teste',numero:'1',bairro:'Centro',municipio:'Tatui',municipioIBGE:'3554003',uf:'SP',cep:'18270000'}});
- const profile=store.fiscal.saveProfileDraft({productId:product,version:1,validFrom:'2026-01-01',payload:{ncm:'22011000',cfop:'5102',cstIcms:'00'}});
+ const profile=store.fiscal.saveProfileDraft({productId:product,version:1,validFrom:'2026-01-01',payload:{
+   ncm:'22011000',cfop:'5102',taxableFactor:'20.0000',operation:'internal_sale_sp',uf:'SP',models:[55],
+   taxes:{icms:{kind:'adValorem',cst:'00',baseRule:'adjusted',rate:'18.0000'},
+     pis:{kind:'notCalculated',cst:'04'},cofins:{kind:'notCalculated',cst:'04'},
+     ibsCbs:{kind:'standard',cst:'000',cClassTrib:'000001',baseRule:'adjustedLessIcms',ibsUfRate:'0.1000',ibsMunRate:'0.0000',cbsRate:'0.9000'}},
+ }});
  store.fiscal.approveProfile({id:profile.id,approvedBy:'revisor sintético'});
  const base={store,orderId:order,model:55,environment:'homologacao',paymentPlan:[{method:'01',amountCents:100}],emissionDate:'2026-10-24T12:00:00-03:00'};
  const result=runPreflight(base);
  assert.equal(result.ok,false);
- assert.deepEqual(result.issues.filter(x=>x.severity==='error').map(x=>x.code),['F03_ENGINE_NOT_IMPLEMENTED']);
+ assert.deepEqual(result.issues.filter(x=>x.severity==='error').map(x=>x.code),['F04_DOCUMENT_NOT_IMPLEMENTED']);
+ assert.equal(result.calculation.totals.documentCents,100);
+ assert.equal(result.calculation.items[0].taxableQuantity,'20.0000');
  assert.ok(runPreflight({...base,profileVersionIds:['perfil-antigo']}).issues.some(x=>x.code==='T09_PROFILE_SELECTION_STALE'));
+ const withFee=store.createOrder({customer_id:customer,delivery_type:'retirada',payment_method:'dinheiro',
+   delivery_fee_cents:25,items:[{product_id:product,quantity:1}]});
+ const feeBase={...base,orderId:withFee,paymentPlan:[{method:'01',amountCents:125}]};
+ assert.ok(runPreflight(feeBase).issues.some(x=>x.code==='F03_DELIVERY_FEE_UNCLASSIFIED'));
+ assert.equal(runPreflight({...feeBase,deliveryFeeTreatment:'freight'}).calculation.totals.documentCents,125);
  assert.equal(store.fiscal.listDocumentsForOrder(order).length,0);
  assert.equal(store.fiscal.getSequence({issuerId:store.fiscal.listIssuers()[0].id,environment:'homologacao',model:55,series:1}) == null,true);
 });
