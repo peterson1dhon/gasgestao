@@ -1,5 +1,7 @@
 # NF-e e NFC-e de São Paulo — viabilidade e segurança
 
+> Atualização 24/10/2026: o plano atual de implementação fiscal está no [dossiê para GPT Sol](fiscal/LEIA-PRIMEIRO-SOL.md). Este documento preserva o histórico; conferir vigências e estado atual no dossiê.
+
 Registro de 23/10/2026, versão 0.6.0. Objetivo: permitir emissão pelo aplicativo Windows, preservando o layout clássico e a operação local. O usuário informou certificado A1 e interesse nos modelos 55 e 65.
 
 **Atualização posterior ao diagnóstico:** o laboratório de desenvolvimento já autorizou e cancelou uma NF-e fictícia em homologação. NFC-e retornou 245 e inutilização 998; existem pendências. O instalador 0.6.0 e sua tela de vendas continuam com diagnóstico somente. O [relatório de emissão](TESTE-EMISSAO-SP.md) descreve o resultado mais recente.

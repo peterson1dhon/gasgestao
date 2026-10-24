@@ -2,6 +2,8 @@
 
 Sistema Windows para organizar uma revenda de gás, água e entregas. Funciona offline e salva os dados em SQLite no computador.
 
+**Continuidade fiscal (24/10/2026):** [dossiê técnico e entrada para GPT Sol](docs/fiscal/LEIA-PRIMEIRO-SOL.md), com fontes oficiais versionadas, arquitetura, recuperação após falhas, plano de implementação e critérios de liberação. É estudo para a próxima etapa; emissão operacional pela tela ainda não foi liberada.
+
 **Versão 0.7.0.** Implementação nova com layout clássico inspirado nas referências públicas do GasExpert: menus superiores, barras de ferramentas, janelas internas, tabelas compactas e cores por pagamento. Código e elementos gráficos próprios. Não inclui executáveis, bancos, recursos visuais ou código descompilado do GasExpert. As regras foram implementadas para este projeto e precisam ser validadas com a operação real.
 
 ## Usar no Windows

@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-24",
+  "baselineCommit": "98eaa1943844def246058c3a61c2bdbfaabd5481",
+  "scope": "Study documentation and SQL design, not a fiscal production release",
+  "officialDownloadsHashVerified": 20,
+  "localMarkdownLinksVerified": 13,
+  "sqlDesignChecks": {
+    "command": "node docs/fiscal/validar-proposta.mjs",
+    "passed": 20,
+    "failed": 0,
+    "database": "in-memory schema5 using current Store"
+  },
+  "existingApplicationTests": {
+    "command": "npm test",
+    "passed": 52,
+    "failed": 0
+  },
+  "build": {
+    "command": "npm run build",
+    "passed": true
+  },
+  "ui": "Not rerun: no renderer, IPC or visual source changes",
+  "sefaz": "No new transmission during this study",
+  "personalDatabase": "Not modified",
+  "productionReady": false
+}

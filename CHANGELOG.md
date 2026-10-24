@@ -1,5 +1,9 @@
 # Histórico
 
+## Estudo fiscal para implementação — 2026-10-24
+
+Dossiê em `docs/fiscal/LEIA-PRIMEIRO-SOL.md`: auditoria do código, fontes oficiais com hashes, contratos de persistência/IPC, recuperação de resultados incertos, perfis tributários, impressão, sequência de entregas e testes. Proposta SQL validada em memória, sem migrar o banco pessoal. Aplicativo instalado e layout preservados; este estudo não habilita emissão de produção.
+
 ## Em desenvolvimento — 2026-10-24
 
 Gerador próprio de XML de laboratório para GLP e água tributada, com assinatura A1, XSD oficial, recálculo de item/totais e bloqueio de enquadramentos ainda não suportados. Oito XMLs válidos nos modelos 55/65. Duas NF-e 55 fictícias autorizadas, consultadas e canceladas em homologação, com retransmissão bloqueada. 52 testes locais e compilação aprovados. Ver `docs/TESTE-GLP-AGUA.md`.

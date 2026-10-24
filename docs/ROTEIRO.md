@@ -1,5 +1,7 @@
 # Roteiro de desenvolvimento
 
+> Atualização 24/10/2026: o plano atual de implementação fiscal está no [dossiê para GPT Sol](fiscal/LEIA-PRIMEIRO-SOL.md). Este documento preserva o histórico; conferir vigências e estado atual no dossiê.
+
 ## Etapa 1 — aplicação local operacional
 
 Cadastros, pedidos, entregadores, fluxo de entrega, estoque reservado, recebimentos parciais, caixa, estornos, comprovantes, relatórios e backups. Testes de regras e do fluxo na janela Electron. Esta é a entrega 0.1.0.
