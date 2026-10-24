@@ -2,7 +2,7 @@
 
 ## Aritmética fiscal inicial F03 — 2026-10-24
 
-Conversão decimal textual com BigInt, multiplicação de quantidade/preço, cálculo percentual e ad rem, e rateio exato de desconto/frete por maiores restos. Casos sintéticos independentes cobrem centavos, arredondamento e limites. Não há ainda motor tributário aprovado para GLP/água nem emissão disponível.
+Conversão decimal textual com BigInt, multiplicação de quantidade/preço, cálculo percentual e ad rem, conversão de unidade comercial em unidade tributável (P13 em kg, água em litros) e rateio exato de desconto/frete por maiores restos. Casos sintéticos independentes cobrem centavos, arredondamento e limites. Não há ainda motor tributário aprovado para GLP/água nem emissão disponível.
 
 ## Configuração fiscal interna F02 — 2026-10-24
 

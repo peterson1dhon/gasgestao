@@ -52,6 +52,28 @@ export function adRemCents(quantity, ratePerUnit) {
   return safeNumber(roundHalfUp(q * rate, pow10(6)));
 }
 
+export function convertTribQuantity(commercialQuantity, taxableUnitsPerCommercialUnit) {
+  const commercial = parseDecimal(commercialQuantity, 4, "quantidade comercial");
+  const factor = parseDecimal(taxableUnitsPerCommercialUnit, 4, "fator tributável");
+  if (commercial === 0n || factor === 0n) throw new RangeError("Quantidade e fator tributável devem ser positivos.");
+  const taxable = roundHalfUp(commercial * factor, pow10(4));
+  if (taxable === 0n) throw new RangeError("Conversão tributável arredondou para zero.");
+  return formatDecimal(taxable, 4);
+}
+
+// Deriva preço unitário tributável de um total comercial já arredondado.
+// Confere de novo o produto qTrib * vUnTrib contra vProd em centavos.
+export function unitTribPrice({ taxableQuantity, commercialTotalCents }) {
+  const q = parseDecimal(taxableQuantity, 4, "quantidade tributável");
+  const total = cents(commercialTotalCents, "valor comercial");
+  if (q === 0n) throw new RangeError("Quantidade tributável deve ser positiva.");
+  const result = formatDecimal(roundHalfUp(total * pow10(12), q), 10);
+  if (lineTotalCents(taxableQuantity, result) !== commercialTotalCents) {
+    throw new RangeError("Não foi possível conciliar preço e quantidade tributável na precisão do leiaute.");
+  }
+  return result;
+}
+
 // Método dos maiores restos. IDs estáveis definem o desempate; a ordem de
 // apresentação não altera a distribuição. Peso zero nunca recebe parcela.
 export function allocateCents(totalCents, entries) {

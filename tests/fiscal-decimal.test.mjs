@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {parseDecimal,formatDecimal,lineTotalCents,percentCents,adRemCents,allocateCents,allocateOrderAdjustments} from '../electron/fiscal/decimal.mjs';
+import {parseDecimal,formatDecimal,lineTotalCents,percentCents,adRemCents,convertTribQuantity,unitTribPrice,allocateCents,allocateOrderAdjustments} from '../electron/fiscal/decimal.mjs';
 
 test('decimal textual preserva escala e rejeita ponto flutuante',()=>{
  assert.equal(parseDecimal('13.0000',4),130000n);
@@ -23,6 +23,18 @@ test('percentuais e ad rem sintéticos usam resultados independentes',()=>{
  assert.equal(percentCents(10000,'18.0000'),1800);
  assert.equal(adRemCents('13.0000','1.4700'),1911);
  assert.equal(adRemCents('0.5100','1.0000'),51);
+});
+
+test('conversão tributável P13, água 20 L e 510 ml preserva valor comercial',()=>{
+ assert.equal(convertTribQuantity('1.0000','13.0000'),'13.0000');
+ assert.equal(convertTribQuantity('2.0000','13.0000'),'26.0000');
+ assert.equal(convertTribQuantity('1.0000','20.0000'),'20.0000');
+ assert.equal(convertTribQuantity('1.0000','0.5100'),'0.5100');
+ const glpUnit=unitTribPrice({taxableQuantity:'13.0000',commercialTotalCents:11000});
+ assert.equal(lineTotalCents('13.0000',glpUnit),11000);
+ const waterUnit=unitTribPrice({taxableQuantity:'0.5100',commercialTotalCents:250});
+ assert.equal(lineTotalCents('0.5100',waterUnit),250);
+ assert.throws(()=>convertTribQuantity('1.0000','0.0000'),/positivos/);
 });
 
 test('rateio dos maiores restos é estável, exato e respeita itens sem base',()=>{
