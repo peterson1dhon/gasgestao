@@ -1,4 +1,5 @@
 import { normalizeCnpj, validCnpj } from "./cnpj.mjs";
+import { FiscalRepository, SCHEMA_V6_SQL } from "./fiscal/repository.mjs";
 import { DatabaseSync } from "node:sqlite";
 import { mkdirSync, renameSync, existsSync } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -53,7 +54,7 @@ export class Store {
       "PRAGMA foreign_keys=ON; PRAGMA busy_timeout=5000; PRAGMA journal_mode=WAL;",
     );
     const version = this.db.prepare("PRAGMA user_version").get().user_version;
-    if (version > 5)
+    if (version > 6)
       throw new Error(
         "Este banco foi criado por uma versão mais recente do GasGestão.",
       );
@@ -121,6 +122,12 @@ export class Store {
           PRAGMA user_version=5;
         `);
       });
+    if (version < 6)
+      this.transaction(() => {
+        FiscalRepository.applyMigrationV6(this.db);
+        this.db.exec("PRAGMA user_version=6;");
+      });
+    this.fiscal = new FiscalRepository(this);
   }
   timestamp() {
     return this.now().toISOString();
@@ -437,6 +444,23 @@ export class Store {
       )
         fail("Envie o pedido para a rota antes de concluir a entrega.");
       if (next === "cancelado") {
+        const hasFiscalTable = this.db
+          .prepare(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='fiscal_documents'",
+          )
+          .get();
+        if (hasFiscalTable) {
+          const activeFiscalDoc = this.db
+            .prepare(
+              "SELECT id, state FROM fiscal_documents WHERE order_id=? AND active=1",
+            )
+            .get(order.id);
+          if (activeFiscalDoc) {
+            fail(
+              `Não é possível cancelar o pedido #${order.id} com documento fiscal ativo ou incerto (${activeFiscalDoc.state}). Resolva a situação fiscal antes de cancelar o pedido.`,
+            );
+          }
+        }
         const items = this.db
           .prepare("SELECT * FROM order_items WHERE order_id=?")
           .all(order.id);

@@ -1,5 +1,22 @@
 # Histórico
 
+## Aritmética fiscal inicial F03 — 2026-10-24
+
+Conversão decimal textual com BigInt, multiplicação de quantidade/preço, cálculo percentual e ad rem, e rateio exato de desconto/frete por maiores restos. Casos sintéticos independentes cobrem centavos, arredondamento e limites. Não há ainda motor tributário aprovado para GLP/água nem emissão disponível.
+
+## Configuração fiscal interna F02 — 2026-10-24
+
+Cadastro fiscal estruturado, referência explícita ao A1 instalado, capacidades por modelo e preflight sem reserva de número. Valida identidade do destinatário, endereço, perfis aprovados e meios de pagamento; impede sobreposição de vigências e troca de emitente no mesmo ID. O cálculo F03, o credenciamento/ciclo NFC-e e a liberação de produção ainda bloqueiam emissão. Sem alterações no layout.
+
+## Etapa fiscal F01 — Persistência, máquina de estados e proteção operacional — 2026-10-24
+
+- **Migração aditiva 6**: evolução transacional no `Store` (`electron/store.mjs`) elevando `user_version` de 5 para 6 sem tocar em dados de pedidos, clientes, estoque ou caixa.
+- **Repositório fiscal (`electron/fiscal/repository.mjs`)**: sequências isoladas por emissor/ambiente/modelo/série, reserva transacional atômica com `BEGIN IMMEDIATE`, concorrência protegida por CAS (`row_version`), revisões e auditoria imutáveis (append-only), artefatos protegidos com validação de integridade por hash SHA-256 e fila durável de jobs (`fiscal_jobs`) com leases e tratamento de expiração.
+- **Máquina de estados pura (`electron/fiscal/state-machine.mjs`)**: modelo determinístico dos 11 estados fiscais sem I/O, matriz estrita de transições, mapeamento de terminalidade e isolamento de efeitos (`cancelled`/`abandoned` com `active=0`), decodificação de retornos da SEFAZ (100, 101, 103, 105, 135, 136, 204, 217, 245, 539, 573, 656, 998).
+- **Proteção operacional P0**: `Store.changeOrderStatus` agora bloqueia o cancelamento operacional de qualquer pedido enquanto houver documento fiscal ativo ou em incerteza, preservando integralmente o estoque e o saldo financeiro até a conclusão ou cancelamento fiscal explícito.
+- **Recuperação determinística no startup**: documentos interrompidos em `sending` ou `cancel_pending` são recuperados de forma auditável para `uncertain` e `cancel_uncertain`, enfileirando tarefas de conciliação.
+- **Bateria de testes D01–D15 (`tests/fiscal-persistence.test.mjs`)**: 62 testes automatizados aprovados no total (`npm test`), além de compilação sem avisos (`npm run build`) e validação da proposta SQL (`validar-proposta.mjs`). Nenhuma nota real emitida e nenhum dado pessoal/certificado no repositório.
+
 ## Estudo fiscal para implementação — 2026-10-24
 
 Dossiê em `docs/fiscal/LEIA-PRIMEIRO-SOL.md`: auditoria do código, fontes oficiais com hashes, contratos de persistência/IPC, recuperação de resultados incertos, perfis tributários, impressão, sequência de entregas e testes. Proposta SQL validada em memória, sem migrar o banco pessoal. Aplicativo instalado e layout preservados; este estudo não habilita emissão de produção.
@@ -71,3 +88,7 @@ Cadastros de clientes, produtos e entregadores; pedidos de entrega/retirada; res
 Código próprio, sem inclusão dos arquivos ou do código descompilado do programa usado como referência funcional.
 
 Publicação no GitHub adiada pelo usuário. Integrações com WhatsApp, Bina, emissão fiscal e importação do sistema anterior permanecem planejadas.
+
+## Continuidade — configuração fiscal em revisão
+
+Correção do carregamento de config.mjs (await indevido em função síncrona), UUID nativo, recusa de seleção ambígua de emitente e restrição inicial CRT3. O preflight55 não bloqueia por pendência exclusiva de65; produção permanece indisponível até implementação dos critérios F11/F12. Pedido vazio ou total inválido é recusado. Testes novos importam os módulos de configuração/preflight, antes fora da suíte. F02 continua parcial: não há emissão operacional pela tela de pedidos.

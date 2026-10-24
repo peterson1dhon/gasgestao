@@ -199,7 +199,7 @@ test("importação é idempotente, preserva variantes, vínculo não muda vendas
   assert.equal(refs.list().references[0].productId, productId);
   assert.equal(refs.list().canIssue, false);
   assert.throws(() => refs.link({ id: doc[0].id, productId: 99999 }));
-  assert.equal(store.db.prepare("PRAGMA user_version").get().user_version, 5);
+  assert.equal(store.db.prepare("PRAGMA user_version").get().user_version, 6);
   store.backupTo(join(dir, "backup.sqlite"));
   store.close();
   store = new Store(join(dir, "backup.sqlite"));
@@ -222,7 +222,7 @@ test("migração de banco anterior mantém pedidos e catálogo começa vazio", (
   assert.equal(new FiscalReferences(migrated).list().references.length, 0);
   assert.equal(
     migrated.db.prepare("PRAGMA user_version").get().user_version,
-    5,
+    6,
   );
   migrated.close();
 });

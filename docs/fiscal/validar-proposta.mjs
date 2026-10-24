@@ -12,9 +12,12 @@ try {
   const product = store.saveProduct({name:'Produto sintético',price_cents:100,cost_cents:50,stock:10,min_stock:0});
   const order = store.createOrder({customer_id:customer,delivery_type:'retirada',payment_method:'dinheiro',items:[{product_id:product,quantity:1}]});
   const before = JSON.stringify(store.getState());
-  store.transaction(() => db.exec(readFileSync(new URL('./schema-v6-proposta.sql',import.meta.url),'utf8')));
+  const hasTables = db.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name='fiscal_issuers'").get();
+  if (!hasTables) {
+    store.transaction(() => db.exec(readFileSync(new URL('./schema-v6-proposta.sql',import.meta.url),'utf8')));
+  }
   ok(() => assert.equal(JSON.stringify(store.getState()),before));
-  ok(() => assert.equal(db.prepare('PRAGMA user_version').get().user_version,5));
+  ok(() => assert.equal(db.prepare('PRAGMA user_version').get().user_version, 6));
   db.prepare('INSERT INTO fiscal_issuers VALUES (?,?,?,?)').run('issuer','SYNTHETIC','{}',0);
   for (const env of ['homologacao','producao']) {
     for (const model of [55,65]) db.prepare('INSERT INTO fiscal_sequences VALUES (?,?,?,?,?)').run('issuer',env,model,1,0);
