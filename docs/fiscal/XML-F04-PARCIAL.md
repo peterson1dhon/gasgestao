@@ -1,0 +1,9 @@
+# F04 parcial — XML estrutural de homologação
+
+Em 24/10/2026, `electron/fiscal/document-builder.mjs` serializa um snapshot F03 sintético de água/5102/ICMS 00/PIS-COFINS 04/IBS-CBS 000001 para **NF-e 55 em homologação**, sem assinatura. Usa número, série, cNF e data fornecidos como identidade imutável; escapa textos, confere perfil do produto e reconcilia itens/totais. Retorna sempre `canIssue:false`. Não recebe o cadastro vivo do aplicativo nem está ligado ao botão de emissão. O layout do GasGestão não foi modificado.
+
+O teste local produziu um XML sintético de R$ 100,00 e passou na validação estrutural `nfe_v4.00.xsd` do pacote PL_010f_v1.04. Como o XSD exige `Signature`, **somente no teste do esquema** foi anexada uma assinatura de preenchimento com bytes fictícios para verificar o restante da estrutura. Essa assinatura não é criptográfica e o arquivo não foi transmitido à SEFAZ. `npm test` incluiu verificação de chave, campos de ICMS/IBS/CBS, ambiente e rejeição de snapshot adulterado, perfil divergente, frete, classe não suportada e data diferente.
+
+F04 ainda precisa serializar desconto/frete, PIS/COFINS ad valorem, GLP monofásico e demais operações revisadas; produzir XML para NFC-e 65; assinar com A1 e validar assinatura/referência contra ataques de duplicidade e alteração; conferir XSD completo nos bytes assinados; comparar resultados com perfis E03 aprovados por produto. F05 transporte, F06 recuperação e F07 impressão continuam pendentes. O laboratório existente é separado e não deve ser confundido com este gerador operacional.
+
+O RevGás mostrou a lista de NF-e emitidas nesta sessão, mas ao abrir `Emitir` redirecionou para login; por isso o formulário não foi observado nesta rodada. Nenhum XML, cliente, certificado ou credencial da conta foi copiado para o repositório.

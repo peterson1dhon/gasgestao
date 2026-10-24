@@ -1,5 +1,9 @@
 # Histórico
 
+## F04 fiscal parcial — 2026-10-24
+
+Gerador determinístico de XML NF-e 55 de homologação para água ordinária, derivado da prévia F03, sem assinatura ou transmissão. Teste estrutural local com XSD 010f usando assinatura fictícia apenas para completar a estrutura; emissão permanece bloqueada.
+
 ## Prévia fiscal por perfil F03 — 2026-10-24
 
 Motor puro para água na combinação restrita NCM 22011000/CFOP 5102/ICMS 00/IBS-CBS 000001, com perfil aprovado e vigente, bases e taxas explícitas. Calcula ICMS, PIS/COFINS suportados e IBS/CBS 2026, reconcilia itens com o total histórico do pedido e apresenta prévia no preflight. GLP monofásico, ST, grupos extras e datas sem política são recusados. Emissão ainda bloqueada pela F04. Ver `docs/fiscal/CALCULO-F03.md`.
