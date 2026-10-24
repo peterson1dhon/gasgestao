@@ -46,14 +46,21 @@ export function saoPauloTimestamp(date = new Date()) {
   );
   return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${parts.second}${parts.timeZoneName.replace("GMT", "").replace(/\u2212/g, "-")}`;
 }
-export function buildLabDocument({
-  issuer,
-  model,
-  number,
-  series = 829,
-  issuedAt = saoPauloTimestamp(),
-  control = String(randomInt(1, 100000000)).padStart(8, "0"),
-}) {
+export function buildLabDocument(options) {
+  return buildLabEnvelope(options);
+}
+// Envelope compartilhado exclusivamente pelos geradores locais de homologação.
+export function buildLabEnvelope(
+  {
+    issuer,
+    model,
+    number,
+    series = 829,
+    issuedAt = saoPauloTimestamp(),
+    control = String(randomInt(1, 100000000)).padStart(8, "0"),
+  },
+  content = null,
+) {
   if (!["55", "65"].includes(String(model)))
     throw new Error("Modelo inválido.");
   model = String(model);
@@ -118,7 +125,13 @@ export function buildLabDocument({
   const rtcTotal = normal
     ? "<IBSCBSTot><vBCIBSCBS>0.82</vBCIBSCBS><gIBS><gIBSUF><vDif>0.00</vDif><vDevTrib>0.00</vDevTrib><vIBSUF>0.00</vIBSUF></gIBSUF><gIBSMun><vDif>0.00</vDif><vDevTrib>0.00</vDevTrib><vIBSMun>0.00</vIBSMun></gIBSMun><vIBS>0.00</vIBS><vCredPres>0.00</vCredPres><vCredPresCondSus>0.00</vCredPresCondSus></gIBS><gCBS><vDif>0.00</vDif><vDevTrib>0.00</vDevTrib><vCBS>0.01</vCBS><vCredPres>0.00</vCredPres><vCredPresCondSus>0.00</vCredPresCondSus></gCBS></IBSCBSTot><vNFTot>1.00</vNFTot>"
     : "";
-  const xml = `<?xml version="1.0" encoding="utf-8"?><NFe xmlns="${NS}"><infNFe Id="NFe${key}" versao="4.00"><ide><cUF>35</cUF><cNF>${control}</cNF><natOp>VENDA TESTE HOMOLOGACAO</natOp><mod>${model}</mod><serie>${series}</serie><nNF>${number}</nNF><dhEmi>${issuedAt}</dhEmi><tpNF>1</tpNF><idDest>1</idDest>${tag("cMunFG", address.cMun)}<tpImp>${model === "55" ? "1" : "4"}</tpImp><tpEmis>1</tpEmis><cDV>${dv}</cDV><tpAmb>2</tpAmb><finNFe>1</finNFe><indFinal>1</indFinal><indPres>1</indPres><procEmi>0</procEmi><verProc>GasGestao-0.6-LAB</verProc></ide><emit>${tag("CNPJ", issuer.CNPJ)}${tag("xNome", issuer.xNome)}<enderEmit>${addressXml}</enderEmit>${tag("IE", issuer.IE)}${tag("CRT", issuer.CRT)}</emit>${dest}<det nItem="1"><prod><cProd>TESTEHML001</cProd><cEAN>SEM GTIN</cEAN><xProd>NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xProd><NCM>22021000</NCM><CEST>1711100</CEST><CFOP>5102</CFOP><uCom>UN</uCom><qCom>1.0000</qCom><vUnCom>1.0000000000</vUnCom><vProd>1.00</vProd><cEANTrib>SEM GTIN</cEANTrib><uTrib>UN</uTrib><qTrib>1.0000</qTrib><vUnTrib>1.0000000000</vUnTrib><indTot>1</indTot></prod><imposto><ICMS>${icms}</ICMS><PIS><PISNT><CST>07</CST></PISNT></PIS><COFINS><COFINSNT><CST>07</CST></COFINSNT></COFINS>${rtc}</imposto><vItem>1.00</vItem></det><total><ICMSTot><vBC>${normal ? "1.00" : "0.00"}</vBC><vICMS>${normal ? "0.18" : "0.00"}</vICMS><vICMSDeson>0.00</vICMSDeson><vFCP>0.00</vFCP><vBCST>0.00</vBCST><vST>0.00</vST><vFCPST>0.00</vFCPST><vFCPSTRet>0.00</vFCPSTRet><vProd>1.00</vProd><vFrete>0.00</vFrete><vSeg>0.00</vSeg><vDesc>0.00</vDesc><vII>0.00</vII><vIPI>0.00</vIPI><vIPIDevol>0.00</vIPIDevol><vPIS>0.00</vPIS><vCOFINS>0.00</vCOFINS><vOutro>0.00</vOutro><vNF>1.00</vNF></ICMSTot>${rtcTotal}</total><transp><modFrete>9</modFrete></transp><pag><detPag><tPag>01</tPag><vPag>1.00</vPag></detPag></pag><infAdic><infCpl>TESTE TECNICO SEM VALOR FISCAL. Parametros de exemplo de referencia historica; nao confirma tributacao atual nem registra venda.</infCpl></infAdic></infNFe>${supplementary}</NFe>`;
+  const detailXml =
+    content?.detailXml ??
+    `<det nItem="1"><prod><cProd>TESTEHML001</cProd><cEAN>SEM GTIN</cEAN><xProd>NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL</xProd><NCM>22021000</NCM><CEST>1711100</CEST><CFOP>5102</CFOP><uCom>UN</uCom><qCom>1.0000</qCom><vUnCom>1.0000000000</vUnCom><vProd>1.00</vProd><cEANTrib>SEM GTIN</cEANTrib><uTrib>UN</uTrib><qTrib>1.0000</qTrib><vUnTrib>1.0000000000</vUnTrib><indTot>1</indTot></prod><imposto><ICMS>${icms}</ICMS><PIS><PISNT><CST>07</CST></PISNT></PIS><COFINS><COFINSNT><CST>07</CST></COFINSNT></COFINS>${rtc}</imposto><vItem>1.00</vItem></det>`;
+  const totalXml =
+    content?.totalXml ??
+    `<total><ICMSTot><vBC>${normal ? "1.00" : "0.00"}</vBC><vICMS>${normal ? "0.18" : "0.00"}</vICMS><vICMSDeson>0.00</vICMSDeson><vFCP>0.00</vFCP><vBCST>0.00</vBCST><vST>0.00</vST><vFCPST>0.00</vFCPST><vFCPSTRet>0.00</vFCPSTRet><vProd>1.00</vProd><vFrete>0.00</vFrete><vSeg>0.00</vSeg><vDesc>0.00</vDesc><vII>0.00</vII><vIPI>0.00</vIPI><vIPIDevol>0.00</vIPIDevol><vPIS>0.00</vPIS><vCOFINS>0.00</vCOFINS><vOutro>0.00</vOutro><vNF>1.00</vNF></ICMSTot>${rtcTotal}</total>`;
+  const xml = `<?xml version="1.0" encoding="utf-8"?><NFe xmlns="${NS}"><infNFe Id="NFe${key}" versao="4.00"><ide><cUF>35</cUF><cNF>${control}</cNF><natOp>VENDA TESTE HOMOLOGACAO</natOp><mod>${model}</mod><serie>${series}</serie><nNF>${number}</nNF><dhEmi>${issuedAt}</dhEmi><tpNF>1</tpNF><idDest>1</idDest>${tag("cMunFG", address.cMun)}<tpImp>${model === "55" ? "1" : "4"}</tpImp><tpEmis>1</tpEmis><cDV>${dv}</cDV><tpAmb>2</tpAmb><finNFe>1</finNFe><indFinal>1</indFinal><indPres>1</indPres><procEmi>0</procEmi><verProc>GasGestao-0.6-LAB</verProc></ide><emit>${tag("CNPJ", issuer.CNPJ)}${tag("xNome", issuer.xNome)}<enderEmit>${addressXml}</enderEmit>${tag("IE", issuer.IE)}${tag("CRT", issuer.CRT)}</emit>${dest}${detailXml}${totalXml}<transp><modFrete>9</modFrete></transp><pag><detPag><tPag>01</tPag><vPag>1.00</vPag></detPag></pag><infAdic><infCpl>TESTE TECNICO SEM VALOR FISCAL. Parametros de exemplo de referencia historica; nao confirma tributacao atual nem registra venda.</infCpl></infAdic></infNFe>${supplementary}</NFe>`;
   return {
     key,
     xml,

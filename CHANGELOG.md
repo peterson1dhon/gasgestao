@@ -1,5 +1,11 @@
 # Histórico
 
+## Em desenvolvimento — 2026-10-24
+
+Gerador próprio de XML de laboratório para GLP e água tributada, com assinatura A1, XSD oficial, recálculo de item/totais e bloqueio de enquadramentos ainda não suportados. Oito XMLs válidos nos modelos 55/65. Duas NF-e 55 fictícias autorizadas, consultadas e canceladas em homologação, com retransmissão bloqueada. 52 testes locais e compilação aprovados. Ver `docs/TESTE-GLP-AGUA.md`.
+
+Avanço do laboratório no código-fonte, sem novo instalador, mudança no layout ou emissão pela tela de pedidos. NFC-e e revisão tributária real continuam pendentes.
+
 ## 0.7.0 — 2026-10-23
 
 Referências fiscais de gás/água integradas ao diagnóstico existente: importação de XMLs com assinatura matemática verificada, consulta dos campos, vínculo em revisão ao produto, alertas de divergência e prévia de cálculo. Catálogo das 40 opções de saída observadas. Leitura real de três XMLs do RevGás, cinco itens, 89–94 campos por item; originais e dados privados fora do Git.

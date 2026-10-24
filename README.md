@@ -69,7 +69,9 @@ Abra **Utilitários → Diagnóstico fiscal SP**, escolha o certificado da empre
 
 A tela de diagnóstico consulta o status em homologação; a versão 0.7.0 também permite ler XMLs já emitidos como referências privadas. A tela de vendas ainda não gera, assina ou emite nota, nem acessa produção. O retorno 107 não comprova credenciamento do emitente nem a correção de impostos. Comprovantes de pedido continuam sem valor fiscal. Consulte o [estudo de viabilidade, plano de 25 dias e revisão de segurança](docs/FISCAL-SP.md).
 
-No laboratório de desenvolvimento, separado da tela de vendas, uma **NF-e fictícia de R$ 1,00 foi autorizada e cancelada em homologação**, com consulta e protocolo confirmados. A NFC-e foi rejeitada com 245, CNPJ emitente não cadastrado; o portal de testes exige dados do responsável para o credenciamento. Inutilização retornou 998, serviço desativado. Isso não libera a operação fiscal diária. Detalhes e limites em [teste de emissão](docs/TESTE-EMISSAO-SP.md).
+No laboratório de desenvolvimento, separado da tela de vendas, em 24/10/2026 foram autorizadas, consultadas e canceladas **duas NF-e fictícias de R$ 1,00: GLP e água tributada**. Oito XMLs dos modelos 55/65 passaram em assinatura A1 e XSD; NFC-e não foi transmitida nesta rodada. Isso não aprova a tributação real nem libera a emissão pela tela de pedidos. Resultados em [teste de gás e água](docs/TESTE-GLP-AGUA.md).
+
+A NFC-e foi rejeitada anteriormente com 245, CNPJ emitente não cadastrado; o portal de testes exige dados do responsável para o credenciamento. Inutilização retornou 998, serviço desativado. Detalhes em [teste inicial de emissão](docs/TESTE-EMISSAO-SP.md).
 
 ## Busca offline de CEP
 

@@ -1,0 +1,223 @@
+{
+  "date": "2026-10-24T11:03:40.220Z",
+  "stage": "laboratorio posterior ao instalador 0.7.0",
+  "environment": "homologacao",
+  "productionFiscalServicesAccessed": false,
+  "privateKeyExported": false,
+  "realTaxationApproved": false,
+  "saleScreenEmissionAvailable": false,
+  "localValidation": {
+    "environment": "homologacao",
+    "productionAccessed": false,
+    "technicalTestOnly": true,
+    "realTaxationApproved": false,
+    "valueCentsPerDocument": 100,
+    "transmissionRequested": false,
+    "cases": [
+      {
+        "scenario": "GLP",
+        "model": "55",
+        "signatureValid": true,
+        "schemaValid": true,
+        "reopenedSignatureValid": true,
+        "authorized": false
+      },
+      {
+        "scenario": "GLP",
+        "model": "65",
+        "signatureValid": true,
+        "schemaValid": true,
+        "reopenedSignatureValid": true,
+        "authorized": false
+      },
+      {
+        "scenario": "AGUA",
+        "model": "55",
+        "signatureValid": true,
+        "schemaValid": true,
+        "reopenedSignatureValid": true,
+        "authorized": false
+      },
+      {
+        "scenario": "AGUA",
+        "model": "65",
+        "signatureValid": true,
+        "schemaValid": true,
+        "reopenedSignatureValid": true,
+        "authorized": false
+      },
+      {
+        "scenario": "AGUA",
+        "model": "55",
+        "signatureValid": true,
+        "schemaValid": true,
+        "reopenedSignatureValid": true,
+        "authorized": false
+      },
+      {
+        "scenario": "AGUA",
+        "model": "65",
+        "signatureValid": true,
+        "schemaValid": true,
+        "reopenedSignatureValid": true,
+        "authorized": false
+      },
+      {
+        "scenario": "AGUA",
+        "model": "55",
+        "signatureValid": true,
+        "schemaValid": true,
+        "reopenedSignatureValid": true,
+        "authorized": false
+      },
+      {
+        "scenario": "AGUA",
+        "model": "65",
+        "signatureValid": true,
+        "schemaValid": true,
+        "reopenedSignatureValid": true,
+        "authorized": false
+      }
+    ],
+    "negativeChecks": [
+      "água com ST bloqueada no gerador",
+      "produção bloqueada antes do certificado",
+      "alteração do XML assinado detectada"
+    ],
+    "finished": "2026-10-24T11:02:24.964Z",
+    "allLocalChecksPassed": true,
+    "allRequestedAuthorizationChecksPassed": false,
+    "registryConfirmedNormal": true,
+    "sourceFilesUnchanged": true
+  },
+  "nfeAuthorizationCycle": {
+    "environment": "homologacao",
+    "productionAccessed": false,
+    "technicalTestOnly": true,
+    "realTaxationApproved": false,
+    "valueCentsPerDocument": 100,
+    "transmissionRequested": true,
+    "cases": [
+      {
+        "scenario": "GLP",
+        "model": "55",
+        "signatureValid": true,
+        "schemaValid": true,
+        "reopenedSignatureValid": true,
+        "authorized": true,
+        "authorization": {
+          "mode": "Authorize",
+          "documentReason": "Autorizado o uso da NF-e",
+          "protocolReceived": true,
+          "environment": "homologacao",
+          "documentStatus": "100",
+          "batchStatus": "104",
+          "ok": true,
+          "model": "55",
+          "reason": "Lote processado",
+          "authorized": true,
+          "privateKeyExported": false
+        },
+        "query": {
+          "environment": "homologacao",
+          "ok": true,
+          "cStat": "100",
+          "model": "55",
+          "reason": "Autorizado o uso da NF-e",
+          "mode": "Query",
+          "privateKeyExported": false
+        },
+        "cancellation": {
+          "privateKeyExported": false,
+          "model": "55",
+          "eventReason": "Evento registrado e vinculado a NF-e",
+          "ok": true,
+          "environment": "homologacao",
+          "batchStatus": "128",
+          "mode": "Cancel",
+          "eventStatus": "135"
+        },
+        "finalQuery": {
+          "environment": "homologacao",
+          "ok": true,
+          "cStat": "101",
+          "model": "55",
+          "reason": "Cancelamento de NF-e homologado",
+          "mode": "Query",
+          "privateKeyExported": false
+        },
+        "duplicateTransmissionBlocked": true
+      },
+      {
+        "scenario": "AGUA",
+        "model": "55",
+        "signatureValid": true,
+        "schemaValid": true,
+        "reopenedSignatureValid": true,
+        "authorized": true,
+        "authorization": {
+          "mode": "Authorize",
+          "documentReason": "Autorizado o uso da NF-e",
+          "protocolReceived": true,
+          "environment": "homologacao",
+          "documentStatus": "100",
+          "batchStatus": "104",
+          "ok": true,
+          "model": "55",
+          "reason": "Lote processado",
+          "authorized": true,
+          "privateKeyExported": false
+        },
+        "query": {
+          "environment": "homologacao",
+          "ok": true,
+          "cStat": "100",
+          "model": "55",
+          "reason": "Autorizado o uso da NF-e",
+          "mode": "Query",
+          "privateKeyExported": false
+        },
+        "cancellation": {
+          "privateKeyExported": false,
+          "model": "55",
+          "eventReason": "Evento registrado e vinculado a NF-e",
+          "ok": true,
+          "environment": "homologacao",
+          "batchStatus": "128",
+          "mode": "Cancel",
+          "eventStatus": "135"
+        },
+        "finalQuery": {
+          "environment": "homologacao",
+          "ok": true,
+          "cStat": "101",
+          "model": "55",
+          "reason": "Cancelamento de NF-e homologado",
+          "mode": "Query",
+          "privateKeyExported": false
+        },
+        "duplicateTransmissionBlocked": true
+      }
+    ],
+    "negativeChecks": [
+      "água com ST bloqueada no gerador",
+      "produção bloqueada antes do certificado",
+      "alteração do XML assinado detectada"
+    ],
+    "finished": "2026-10-24T11:03:40.220Z",
+    "allLocalChecksPassed": true,
+    "allRequestedAuthorizationChecksPassed": true,
+    "registryConfirmedNormal": true,
+    "sourceFilesUnchanged": true
+  },
+  "unitTestsPassed": 52,
+  "buildPassed": true,
+  "nfceAuthorizationAttemptedThisRound": false,
+  "pending": [
+    "revisao tributaria e conversoes",
+    "credenciamento e testes NFC-e",
+    "DANFE e impressao",
+    "contingencia e recuperacao",
+    "integracao com pedido"
+  ]
+}

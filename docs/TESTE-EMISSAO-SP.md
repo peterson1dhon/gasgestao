@@ -1,5 +1,7 @@
 # Teste real de emissão — 23/10/2026
 
+Registro do primeiro ciclo com produto genérico. O avanço posterior de GLP e água, realizado em 24/10/2026, está em [TESTE-GLP-AGUA.md](TESTE-GLP-AGUA.md); a pendência de NFC-e abaixo permanece.
+
 **Resultado: NF-e de teste autorizada e cancelada; NFC-e ainda bloqueada pelo cadastro de homologação. Não passou tudo.**
 
 Uma NF-e fictícia de R$ 1,00 foi transmitida à homologação de São Paulo com o certificado da empresa instalado no Windows. O laboratório gerou e assinou o XML, validou a estrutura oficial, recebeu autorização e verificou o cancelamento. Não houve transmissão a webservice fiscal de produção nem alteração de pedidos, estoque ou caixa do aplicativo.

@@ -1,5 +1,7 @@
 # Campos fiscais de gás e água — 0.7.0
 
+**Avanço de 24/10/2026:** o laboratório do código agora gera XMLs GLP/água e validou o ciclo de duas NF-e em homologação; veja [resultados e limites](TESTE-GLP-AGUA.md). A consulta/prévia da interface 0.7.0 descrita abaixo permanece igual, sem emissão pelo pedido.
+
 ## Levantamento e códigos
 
 Em 23/10/2026 foram consultadas as opções de saída do RevGás e baixados, pela interface autorizada, três XMLs já emitidos, com cinco itens. O novo leitor verificou matematicamente as três assinaturas e a compatibilidade de chave/digest com o protocolo presente no arquivo. Isso não verifica a autenticidade do protocolo na SEFAZ, a cadeia/revogação do certificado ou a situação atual da nota.

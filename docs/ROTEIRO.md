@@ -6,6 +6,8 @@ Cadastros, pedidos, entregadores, fluxo de entrega, estoque reservado, recebimen
 
 ## Entregas adicionais concluídas
 
+- Laboratório de 24/10/2026: geração própria de XML GLP/água, oito documentos dos modelos 55/65 assinados e válidos no XSD; duas NF-e 55 fictícias autorizadas e canceladas em homologação. Sem novo instalador ou emissão no pedido. Ver `TESTE-GLP-AGUA.md`.
+
 - 0.7.0: leitura/consulta de referências fiscais de gás/água exportadas do RevGás, vínculo em revisão, prévia e alertas de divergência. Catálogo com 40 opções de operação. Emissão no pedido permanece pendente; ver `FISCAL-GAS-AGUA.md`.
 
 - 0.2.0: layout clássico conforme referências públicas do original.
