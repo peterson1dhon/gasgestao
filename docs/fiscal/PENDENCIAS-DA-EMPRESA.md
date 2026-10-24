@@ -15,6 +15,8 @@ Estas pendências não impedem desenvolver banco, motor puro, mocks, estados e i
 | E09 | Operações efetivamente necessárias além de venda interna | Ampliação de escopo | Lista priorizada; operações não implementadas continuam bloqueadas |
 | E10 | Data exata do vencimento do sistema atual | Planejamento de transição | Cronograma real; a menção anterior a 25 dias não é data confiável para cálculo hoje |
 
+Em 24/10/2026, a inspeção autorizada da conta RevGás mostrou a rota **Emitir NFC-e** bloqueada com aviso de estabelecimento sem configuração de NFC-e. Isso reforça E01 e é coerente com a rejeição 245 do laboratório; não representa prova de credenciamento nem de emissão modelo 65.
+
 ## Lacunas de pesquisa delimitadas para etapas posteriores
 
 1. Antes de habilitar contingência: conferir norma atual SP de prazo de transmissão, requisitos de vias e tratamentos de rejeição. Manuais históricos não bastam para presumir prazo estadual atual.
